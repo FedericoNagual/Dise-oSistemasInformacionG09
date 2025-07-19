@@ -1,0 +1,90 @@
+public class $className$
+{
+$foreach (att in ClassAttributes)
+    private $att.type$ $att.name$;
+$end
+
+$foreach (att in ClassAttributes)
+
+    public $att.type$ get$att.Name$() {
+        return this.$att.name$;
+    }
+
+    public void set$att.Name$($att.type$ $att.name$) {
+        this.$att.name$ = $att.name$;
+    }
+$end
+
+    public $className$(
+$join(", ", att in ClassAttributes) $att.type$ $att.name$ $end
+    ) {
+$foreach (att in ClassAttributes)
+        this.$att.name$ = $att.name$;
+$end
+    }
+}
+
+
+Code Template Editor
+
+
+
+%if elemType == "Interface"%
+%PI="\n\n"%
+{
+%list="InnerClass" @separator="\n\n" @indent="\t"%
+%list="Attribute" @separator="\n" @indent="\t"%
+%list="Operation" @separator="\n\n" @indent="\t"%
+}
+%endTemplate%
+
+%PI="\n\n"%
+{
+%list="InnerClass" @separator="\n\n" @indent="\t"%
+%list="Attribute" @separator="\n" @indent="\t"%
+
+%if genOptStmCSharpUseNewTemplate != "T" or stmContextHasStatemachine != "T"%
+$ops=""
+%if genOptGenConstructor == "T" and classHasConstructor != "T"%
+$ops+="\tpublic "+%className%+"(){\n\n\t}"
+%endIf%
+
+// Código de set y get
+%list="Attribute" @separator="\n\n" @indent="\t" template="JavaGetterSetter"%
+
+%endIf%
+
+%PI="\n"%
+$StateMachineGUID 	= %EASL_GET("Property", classGUID, "StateMachine")%
+$sProp 				= %EASLList="Property" @separator="\n" @indent="\t" @owner=classGUID @collection="Properties"%
+$sBehaviors 		= %EASLList="Behavior" @separator="\n" @indent="\t" @owner=classGUID @collection="Behaviors"%
+
+$ops
+%list="Operation" @separator="\n\n" @indent="\t"%
+
+%if $sProp != ""%
+	/* Begin - EA generated code for Parts and Ports */
+$sProp
+	/* End - EA generated code for Parts and Ports */
+%endIf%
+
+%if $sBehaviors != ""%
+	/* Begin - EA generated code for  Activities and Interactions */
+$sBehaviors
+	/* End - EA generated code for  Activities and Interactions */
+%endIf%
+
+%if $StateMachineGUID != "" and genOptStmJavaUseNewTemplate != "T"%
+	/* Begin - EA generated code for StateMachine */
+%StateMachine()%
+	/* End - EA generated code for StateMachine */
+%endIf%
+
+%if genOptStmJavaUseNewTemplate == "T" and stmContextHasStatemachine == "T"%
+	/* Begin - EA generated code for StateMachine */
+\n
+%StmContextDefinition%
+\n
+	/* End - EA generated code for StateMachine */
+%endIf%
+}//end %className%

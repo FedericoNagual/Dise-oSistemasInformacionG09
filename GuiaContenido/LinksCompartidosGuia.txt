@@ -1,0 +1,24 @@
+
+/*
++-------------------------------+
+|			ROADMAP				|
++-------------------------------+
+*/
+
+https://roadmap.sh/flutter
+
+/*
++-------------------------------+
+|			YTLista				|
++-------------------------------+
+*/
+
+https://www.youtube.com/playlist?list=PL5bUkytjjehzWSHkCt3WzxxWBgabTVm--
+
+--Comienza con todo lo relacionado a Java para hacer el BackEnd(BE) y SpringBoot,
+
+--Manejo de github 
+
+--Pasa a Flutter que es la tecnologia que tenemos que usar para el FrontEnd(FE)
+
+--Y tambien tienen videos de como es la arquitectura de los mismos y de donde vienen.
